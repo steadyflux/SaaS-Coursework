@@ -29,12 +29,15 @@ end
 
 class String
   def palindrome?
-    stripped_string = self.gsub(/\W/, "").downcase
-    stripped_string == stripped_string.reverse
+    self.gsub(/\W/, "").downcase == self.gsub(/\W/, "").downcase.reverse
   end
 end
 
-
+module Enumerable
+  def palindrome?
+    self == self.reverse if self.is_a?(Array)
+  end
+end
 
 class HW2Part1Test < Test::Unit::TestCase
 
@@ -88,12 +91,26 @@ class HW2Part1Test < Test::Unit::TestCase
     end
   end
   
-  def test_bad_palindrome
+  def test_bad_string_palindrome
     assert !"foo".palindrome?
   end
   
-  def test_good_palindrome
+  def test_good_string_palindrome
     assert "A man, a plan, a canal -- Panama".palindrome?
   end
   
+  def test_bad_array_palindrome
+    assert ![3,4].palindrome?
+    assert ![3,4,5].palindrome?
+  end
+  
+  def test_good_array_palindrome
+    assert [3].palindrome?
+    assert [3,4,3].palindrome?
+    assert [1,2,3,2,1].palindrome?
+  end
+  
+  def test_hash_palindrome
+    {"hash" => "value"}.palindrome?
+  end
 end
