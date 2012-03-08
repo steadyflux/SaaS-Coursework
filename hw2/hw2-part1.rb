@@ -1,7 +1,5 @@
 require 'test/unit'
 
-# A
-
 class Numeric
   @@currencies = {'dollar' => 1, 'yen' => 0.013, 'euro' => 1.292, 'rupee' => 0.019}
   def method_missing(method_id)
